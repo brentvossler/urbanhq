@@ -1,0 +1,28 @@
+<!-- views/index.ejs -->
+<!doctype html>
+<html>
+	<head>
+	    <% include ./partials/head %>
+	</head>
+	
+	<body>
+		<header>
+	        <% include ./partials/header %>
+	    </header>
+		
+		<div class="container">
+
+		    <div class="jumbotron text-center">
+		        <h1><span class="fas fa-wine-glass"></span> UrbanHQ</h1>
+
+		        <p>Login or Register with:</p>
+		        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login </a><br><br>
+		        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup!</a>
+		    </div>
+
+		</div>
+		<footer> 
+			<% include ./partials/footer %>
+		</footer>
+	</body>
+</html>
