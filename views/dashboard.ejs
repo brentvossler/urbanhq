@@ -3,30 +3,165 @@
 <html>
 	<head>
 	    <% include ./partials/head %>
+	    <script src="js/calculations.js"></script>
+    	<script src="js/accounting.js"></script>
 	</head>
 	<body>
-		<header>
+		<div>
                 <% include ./partials/header %>
-    	</header>
-		<div class="container">
-		    <div class="page-header text-center">
-		        <h1>Profile Page</h1>
-		        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    	</div>
+		    <div class="text-center">
+		        <h1>Property Worksheet</h1>
 		    </div>
-		    <div class="row">
-		        <!-- LOCAL INFORMATION -->
-		        <div class="col-sm-6">
-		            <div class="well">
-		                <h3><span class="fa fa-user"></span> Local</h3>
-	                    <p>
-	                        <strong>id</strong>: <%= user._id %><br>
-	                        <strong>email</strong>: <%= user.local.email %><br>
-	                        <strong>password</strong>: <%= user.local.password %>
-	                    </p>
+
+			
+			<div class="container">
+				<form method="post">
+					<h3 class="col-sm-12"> Enter Seller Criteria </h3>
+					<div class="form-group form-group-sm">
+                    	<label class="control-label col-sm-2 small" for="arv">ARV</label>
+                    	<div class="col-sm-2">
+                			<input class="form-control" id="arv" name="arv" value="0" onChange="CalculateOfferPrice()" type="text"/>
+                		</div>
+	                </div> 
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="repairs">Repairs</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" class= id="repairs" name="repairs" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="assignment">Assignment</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="assignment" name="assignment" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="months"># of months</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="monthstocomplete" name="monthstocomplete" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="avgdom">Avg DOM</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="avgdom" name="avgdom" value="120" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="totalmonths">Total Months</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="totalmonths" name="totalmonths" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="costtobuy">Cost to Buy</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="costtobuy" name="costtobuy" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="costtohold">Cost to Hold</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="costtohold" name="costtohold" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="costtosell">Cost to Sell</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="costtosell" name="costtosell" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="profit">Profit</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="profit" name="profit" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+					<div class="form-group form-group-sm bg-success">
+	                    <label class="control-label col-sm-2 small" for="offerprice">OFFER PRICE</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="offerprice" name="offerprice" type="text" />
+	                    </div>
 		            </div>
-		        </div>
-		    </div>
-		</div>
+
+		            <h3 class="col-sm-12">Enter Buyer Criteria</h3>
+	                
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="desiredprofit">Buyer Profit</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="desiredprofit" onChange="CalculateOfferPrice()" name="desiredprofit" value="10%" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="buyercosttobuy">Cost to Buy</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="buyercosttobuy" name="buyercosttobuy" onChange="CalculateOfferPrice()" value="2.8%" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="originationpoints">Orig. Pts</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="originationpoints" name="originationpoints" value="2%" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="concessions">Concessions</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="concessions" name="concessions" value="1%" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="closingcosts">Closing Costs</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="closingcosts" name="closingcosts" value="1.25%" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="realtorscommission">Realtor Comm</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="realtorscommission" name="realtorscommission" value="1%" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="misc">Misc.</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="misc" name="misc" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="insurance">Insurance</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="insurance" name="insurance" value="1%" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="taxes">Taxes</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="taxes" name="taxes" value="3%" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="interest">Interest</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="interest" name="interest" value="10%" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="costtoholdmonthly">Cost to Hold mon.</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="costtoholdmonthly" name="costtoholdmonthly" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+	                <div class="form-group form-group-sm">
+	                    <label class="control-label col-sm-2 small" for="buyerpurchaseprice">Buyer Price</label>
+	                    <div class="col-sm-2">
+	                        <input class="form-control" id="buyerpurchaseprice" name="buyerpurchaseprice" value="0" onChange="CalculateOfferPrice()" type="text"/>
+	                    </div>
+	                </div>
+            </form>
+        </div>
+
 		<footer> 
 			<% include ./partials/footer %>
 		</footer>
